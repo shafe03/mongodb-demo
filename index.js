@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost/my_database', {
 
 
 const salesSchema = new mongoose.Schema({
-    customerName: String,
+    customerName: {type:String, required:true},
     amount: Number,
     product: [String],
     date: {
@@ -28,19 +28,24 @@ const Sale = mongoose.model('Sale', salesSchema);
 
 async function createSale() {
     const sale = new Sale({
-        customerName: 'zetta byte',
+        //customerName: 'zetta byte',
         amount: 330,
         product: ['c', 'b'],
         salesType: 'credit',
         quantity: 10,
-        approved: false,
+        approved: false, 
     })
-
-    const result = await sale.save();
-    console.log(result)
+    
+    try{
+        const result = await sale.save();
+   				 console.log(result)
+    }
+    catch(ex){
+      console.log(ex.message)
+    }
 }
 
-
+createSale();
 
 //.find({amount: {$lt:1000, $gt:10000}})
 //.find({amount: {$in: [1000, 5000,4000]}})
