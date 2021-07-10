@@ -62,6 +62,9 @@ async function getSales() {
 
 getSales();
 
+
+//query first approach
+/*
 async function updateCourse(id){
   const sale = await Sale.findById(id);
   if(!sale) return;
@@ -73,7 +76,20 @@ async function updateCourse(id){
 }
 
 updateCourse('60e85955b841c64deff9daee')
+*/
 
+//update first approach
+async function updateCourse(id){
+  const result = await Sale.updateMany({_id:id}, {
+      $set:{
+          customerName: 'tanvir',
+          amount: 50000,
+      }
+  });
+  
+ console.log(result);
+}
 
+updateCourse('60e85955b841c64deff9daee')
 
 
