@@ -57,7 +57,6 @@ async function getSales() {
     .find({approved:false})
     .sort({customerName: 1})
     .limit(10)
-    .countDocuments()
     console.log(sales)
 }
 
