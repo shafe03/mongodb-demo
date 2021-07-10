@@ -57,7 +57,7 @@ async function getSales() {
     .find({approved:false})
     .sort({customerName: 1})
     .limit(10)
-    //console.log(sales)
+    console.log(sales)
 }
 
 getSales();
@@ -79,7 +79,7 @@ updateCourse('60e85955b841c64deff9daee')
 */
 
 //update first approach
-async function updateCourse(id){
+async function updateSales(id){
   const result = await Sale.updateMany({_id:id}, {
       $set:{
           customerName: 'tanvir',
@@ -90,6 +90,23 @@ async function updateCourse(id){
  console.log(result);
 }
 
-updateCourse('60e85955b841c64deff9daee')
+updateSales('60e85955b841c64deff9daee')
+
+
+async function deleteSales(id){
+  //const result = await Sale.deleteOne({_id:id})
+   const result = await Sale.findByIdAndRemove(id)
+ console.log(result);
+}
+
+deleteSales('60e85955b841c64deff9daee')
+
+
+
+
+
+
+
+
 
 
