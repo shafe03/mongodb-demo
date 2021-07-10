@@ -57,14 +57,22 @@ async function getSales() {
     .find({approved:false})
     .sort({customerName: 1})
     .limit(10)
-    console.log(sales)
+    //console.log(sales)
 }
 
 getSales();
 
+async function updateCourse(id){
+  const sale = await Sale.findById(id);
+  if(!sale) return;
+  
+  sale.customerName = "shafe";
+  
+ const result = await sale.save();
+ console.log(result);
+}
 
-
-
+updateCourse('60e85955b841c64deff9daee')
 
 
 
