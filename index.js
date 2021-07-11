@@ -15,12 +15,17 @@ const salesSchema = new mongoose.Schema({
         required:true,
         minLength: 5,
         maxLength: 100,
+        lowercase: true,
+        uppercase: true,
+        trim: true,
         },     
     amount: {
         type:Number, 
     				required: function(){return this.customerName},
     				min:100,
     				max:1000,
+    				get: value => Math.round(value),
+    				set: value => Math.round(value),
     },  
     product: {
         type:Array,
@@ -48,7 +53,8 @@ const salesSchema = new mongoose.Schema({
         type: Number, 
         required:true, 
         min:5, 
-        max:110},
+        max:110
+        },
     
     approved: Boolean,
 });
@@ -60,9 +66,9 @@ const Sale = mongoose.model('Sale', salesSchema);
 async function createSale() {
     const sale = new Sale({
         customerName: 'sas tech',
-        amount: 500,
+        amount: 500.2,
         product: ['sledger'],
-        salesType: '',
+        salesType: 'cash',
         quantity: 50,
        	approved: true, 
     })
