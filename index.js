@@ -10,16 +10,39 @@ mongoose.connect('mongodb://localhost/my_database', {
 
 
 const salesSchema = new mongoose.Schema({
-    customerName: {type:String, required:true},
-    amount: Number,
+    customerName: {
+        type:String, 
+        required:true,
+        minLength: 5,
+        maxLength: 100,
+        },
+        
+    amount: {
+        type:Number, 
+    				required: function(){return this.customerName},
+    				min:100,
+    				max:1000,
+    },
+    
     product: [String],
+    
     date: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
-    salesType: String,
-    quantity: Number,
-    approved: false,
+    
+    salesType: {
+        type:String,
+        enum: ['cash', 'credit'],
+    },
+    
+    quantity: {
+        type: Number, 
+        required:true, 
+        min:5, 
+        max:110},
+    
+    approved: Boolean,
 });
 
 const Sale = mongoose.model('Sale', salesSchema);
@@ -31,9 +54,9 @@ async function createSale() {
         //customerName: 'zetta byte',
         amount: 330,
         product: ['c', 'b'],
-        salesType: 'credit',
-        quantity: 10,
-        approved: false, 
+        salesType: '-',
+        quantity: 0,
+       // approved: false, 
     })
     
     try{
