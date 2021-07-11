@@ -24,9 +24,14 @@ const salesSchema = new mongoose.Schema({
     },  
     product: {
         type:Array,
+        //custom validation
         validate: {
-            validator: function(v){
-                return v && v.length > 0;
+            isAsync: true,
+            validator: function(v, callback){
+                setTimeout(()=> {
+                    const result = v && v.length > 0;
+                				callback(result)
+                }, 4000)
             },
            	message: 'product feild is mandatory',
         },
@@ -51,7 +56,7 @@ const salesSchema = new mongoose.Schema({
 const Sale = mongoose.model('Sale', salesSchema);
 
 
-
+//create sale 
 async function createSale() {
     const sale = new Sale({
         customerName: 'power solution',
