@@ -15,27 +15,30 @@ const salesSchema = new mongoose.Schema({
         required:true,
         minLength: 5,
         maxLength: 100,
-        },
-        
+        },     
     amount: {
         type:Number, 
     				required: function(){return this.customerName},
     				min:100,
     				max:1000,
+    },  
+    product: {
+        type:Array,
+        validate: {
+            validator: function(v){
+                return v && v.length > 0;
+            },
+           	message: 'product feild is mandatory',
+        },
     },
-    
-    product: [String],
-    
     date: {
         type: Date,
         default: Date.now,
     },
-    
     salesType: {
         type:String,
         enum: ['cash', 'credit'],
-    },
-    
+    }, 
     quantity: {
         type: Number, 
         required:true, 
@@ -51,12 +54,12 @@ const Sale = mongoose.model('Sale', salesSchema);
 
 async function createSale() {
     const sale = new Sale({
-        //customerName: 'zetta byte',
-        amount: 330,
-        product: ['c', 'b'],
-        salesType: '-',
-        quantity: 0,
-       // approved: false, 
+        customerName: 'power solution',
+        amount: 500,
+        product: ['sledger'],
+        salesType: 'cash',
+        quantity: 50,
+       	approved: true, 
     })
     
     try{
