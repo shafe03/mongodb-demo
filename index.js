@@ -59,10 +59,10 @@ const Sale = mongoose.model('Sale', salesSchema);
 //create sale 
 async function createSale() {
     const sale = new Sale({
-        customerName: 'power solution',
+        customerName: 'sas tech',
         amount: 500,
         product: ['sledger'],
-        salesType: 'cash',
+        salesType: '',
         quantity: 50,
        	approved: true, 
     })
@@ -72,7 +72,8 @@ async function createSale() {
    				 console.log(result)
     }
     catch(ex){
-      console.log(ex.message)
+      for(field in ex.errors)
+      console.log(ex.errors[field].message)
     }
 }
 
@@ -96,7 +97,7 @@ async function getSales() {
     console.log(sales)
 }
 
-getSales();
+//getSales();
 
 
 //query first approach
